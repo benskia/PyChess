@@ -32,7 +32,7 @@ class Piece:
         self.id: str = ""
         self.is_white: bool = is_white
         self.moves_once: bool = moves_once
-        self.movement_patterns: list[tuple[int, int]]
+        self.movement_patterns: list[tuple[int, int]] = []
 
     def __repr__(self) -> str:
         return self.id
@@ -54,7 +54,7 @@ class Knight(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self.id = "N"
-        self.movement_patterns = L_PATTERNS
+        self.movement_patterns.extend(L_PATTERNS)
 
 
 class Rook(Piece):
@@ -62,7 +62,7 @@ class Rook(Piece):
     def __init__(self, is_white: bool, moves_once: bool = False) -> None:
         super().__init__(is_white, moves_once)
         self.id = "R"
-        self.movement_patterns = STRAIGHT_PATTERNS
+        self.movement_patterns.extend(STRAIGHT_PATTERNS)
 
 
 class Bishop(Piece):
@@ -70,7 +70,7 @@ class Bishop(Piece):
     def __init__(self, is_white: bool, moves_once: bool = False) -> None:
         super().__init__(is_white, moves_once)
         self.id = "B"
-        self.movement_patterns = DIAGONAL_PATTERNS
+        self.movement_patterns.extend(DIAGONAL_PATTERNS)
 
 
 class Queen(Piece):
@@ -78,7 +78,7 @@ class Queen(Piece):
     def __init__(self, is_white: bool, moves_once: bool = False) -> None:
         super().__init__(is_white, moves_once)
         self.id = "Q"
-        self.movement_patterns = STRAIGHT_PATTERNS + DIAGONAL_PATTERNS
+        self.movement_patterns.extend(STRAIGHT_PATTERNS + DIAGONAL_PATTERNS)
 
 
 class King(Piece):
@@ -86,4 +86,4 @@ class King(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self.id = "K"
-        self.movement_patterns = STRAIGHT_PATTERNS + DIAGONAL_PATTERNS
+        self.movement_patterns.extend(STRAIGHT_PATTERNS + DIAGONAL_PATTERNS)
