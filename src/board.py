@@ -40,13 +40,13 @@ class Board:
         return [None] * BOARD_SIZE
 
     def __repr__(self) -> str:
-        output: str = "\n"
-        for rank in self._grid:
-            for file in rank:
+        output: str = "\n a  b  c  d  e  f  g  h\n"
+        output += " |  |  |  |  |  |  |  |\n\n"
+        for rank in range(len(self._grid)):
+            for file in self._grid[rank]:
                 if file:
                     output += f" {file} "
                 else:
                     output += f" * "
-            output += "\n\n"
-
+            output += f" --{rank+1}\n\n"
         return output
