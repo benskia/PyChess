@@ -41,7 +41,7 @@ class Board:
 
     def __repr__(self) -> str:
         output: str = "\n a  b  c  d  e  f  g  h\n"
-        output += " |  |  |  |  |  |  |  |\n\n"
+        output += " | " * 8 + "\n\n"
         for rank in range(len(self._grid)):
             for file in self._grid[rank]:
                 if file:
