@@ -1,10 +1,21 @@
+class Command:
+
+    def __init__(self, target_id: str, x1: int, y1: int, x2: int, y2: int) -> None:
+        self._id: str = target_id
+        self._x1: int = x1
+        self._y1: int = y1
+        self._x2: int = x2
+        self._y2: int = y2
+
+
 def validate_command(command: str) -> bool:
     # Commands are in a verbose form of algebraic notation (ex: Nb1c3)
     # piece id --- origin file and rank --- destination file and rank
     print(f"Validating command: '{command}' ...")
+    if not validate_length(command):
+        return False
     return all(
         [
-            validate_length(command),
             validate_piece_id(command[0]),
             validate_file(command[1]),
             validate_rank(command[2]),
