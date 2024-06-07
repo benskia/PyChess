@@ -6,7 +6,6 @@
 from piece import *
 
 BOARD_SIZE: int = 8
-EMPTY_RANK: list[Piece | None] = [None] * BOARD_SIZE
 
 
 class Board:
@@ -17,13 +16,13 @@ class Board:
 
     def __default_start(self) -> None:
         self._grid = []
-        self._grid.append(self.__default_rows(True, True))
-        self._grid.append(self.__default_rows(False, True))
-        self._grid.extend([EMPTY_RANK] * 4)
-        self._grid.append(self.__default_rows(False, False))
-        self._grid.append(self.__default_rows(True, False))
+        self._grid.append(self.__get_default_row(True, True))
+        self._grid.append(self.__get_default_row(False, True))
+        self._grid.extend([self.__get_empty_row() for _ in range(4)])
+        self._grid.append(self.__get_default_row(False, False))
+        self._grid.append(self.__get_default_row(True, False))
 
-    def __default_rows(self, is_back_rank: bool, is_white: bool) -> list[Piece | None]:
+    def __get_default_row(self, is_back_rank: bool, is_white: bool) -> list[Piece | None]:
         if is_back_rank:
             return [
                 Rook(is_white),
@@ -36,6 +35,9 @@ class Board:
                 Rook(is_white),
             ]
         return [Pawn(is_white)] * BOARD_SIZE
+
+    def __get_empty_row(self) -> list[Piece | None]:
+        return [None] * BOARD_SIZE
 
     def __repr__(self) -> str:
         output: str = "\n"
