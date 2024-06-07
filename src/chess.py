@@ -5,8 +5,18 @@
 
 
 from board import Board
-from command import Command
 from command_validators import validate_command
+from move_validators import validate_move
+
+
+class Command:
+
+    def __init__(self, target_id: str, x1: int, y1: int, x2: int, y2: int) -> None:
+        self._id: str = target_id
+        self._x1: int = x1
+        self._y1: int = y1
+        self._x2: int = x2
+        self._y2: int = y2
 
 
 class Game:
@@ -20,12 +30,17 @@ class Game:
         print(self._board)
         cmd: Command | None = None
         while not cmd:
-            cmd = self.__parse_command(input(self._input_prompt))
-        print("Successfully created command!")
+            cmd = self.__get_command(input(self._input_prompt))
 
-    def __parse_command(self, command: str) -> Command | None:
-        if not validate_command(command):
+    def __get_command(self, potential_cmd: str) -> Command | None:
+        if not validate_command(potential_cmd):
             return None
+        cmd = self.__parse_command(potential_cmd)
+        if not validate_move(cmd, self._board):
+            return None
+        return cmd
+
+    def __parse_command(self, command: str) -> Command:
         x1: int = ord(command[1]) - 97
         y1: int = int(command[2])
         x2: int = ord(command[3]) - 97
