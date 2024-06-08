@@ -26,7 +26,7 @@ class Game:
             if user_input == "Q":
                 break
             cmd: Command | None = self.__get_command(user_input)
-            if cmd:
+            if cmd and validate_move(cmd, self._board._grid):
                 print(f"executing command ({cmd._x1, cmd._y1}) to ({cmd._x2, cmd._y2})")
                 self.__execute_command(cmd)
         print("ending game...")
@@ -41,10 +41,7 @@ class Game:
     def __get_command(self, potential_cmd: str) -> Command | None:
         if not validate_command(potential_cmd):
             return None
-        cmd = self.__parse_command(potential_cmd)
-        if not validate_move(cmd, self._board._grid):
-            return None
-        return cmd
+        return self.__parse_command(potential_cmd)
 
     def __execute_command(self, cmd: Command) -> None:
         source: Piece | None = self._board._grid[cmd._y1][cmd._x1]
