@@ -43,10 +43,7 @@ class Pawn(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self._id = "P"
-        if self._is_white:
-            self._movement_patterns.append((0, 1))
-        else:
-            self._movement_patterns.append((0, -1))
+        self._movement_patterns = [(0, 1)]
 
 
 class Knight(Piece):
