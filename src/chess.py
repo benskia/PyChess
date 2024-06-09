@@ -10,12 +10,12 @@ from movement import validate_move
 from piece import Piece
 
 
-
-
 class Game:
 
     def __init__(self) -> None:
-        self._input_prompt: str = "Input command in algebraic notation (ex: Nb1c3) (Q to quit): "
+        self._input_prompt: str = (
+            "Input command in algebraic notation (ex: Nb1c3) (Q to quit): "
+        )
         self._is_white: bool = True
         self._board = Board()
 
@@ -45,9 +45,12 @@ class Game:
 
     def __execute_command(self, cmd: Command) -> None:
         source: Piece | None = self._board._grid[cmd._y1][cmd._x1]
-        # target: Piece | None = self._board._grid[cmd._y2][cmd._x2]
         if source is None or source._id != cmd._id:
             print(f"'{cmd._id}' not found at origin square")
             return
+        if source._is_white != self._is_white:
+            print("Player and piece colors don't match.")
+            return
         self._board._grid[cmd._y2][cmd._x2] = source
         self._board._grid[cmd._y1][cmd._x1] = None
+        self._is_white = not self._is_white

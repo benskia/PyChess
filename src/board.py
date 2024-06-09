@@ -4,6 +4,7 @@
 
 
 from piece import *
+from string import ascii_lowercase
 
 BOARD_SIZE: int = 8
 
@@ -22,7 +23,9 @@ class Board:
         self._grid.append(self.__get_default_row(False, False))
         self._grid.append(self.__get_default_row(True, False))
 
-    def __get_default_row(self, is_back_rank: bool, is_white: bool) -> list[Piece | None]:
+    def __get_default_row(
+        self, is_back_rank: bool, is_white: bool
+    ) -> list[Piece | None]:
         if is_back_rank:
             return [
                 Rook(is_white),
@@ -40,13 +43,16 @@ class Board:
         return [None] * BOARD_SIZE
 
     def __repr__(self) -> str:
-        output: str = "\n a  b  c  d  e  f  g  h\n"
-        output += " | " * 8 + "\n\n"
+        output: str = (
+            "\n  " + "   ".join([c for c in ascii_lowercase[:BOARD_SIZE]]) + "\n"
+        )
+        output += "  | " * 8 + "\n\n"
         for rank in range(len(self._grid)):
             for file in self._grid[rank]:
                 if file:
-                    output += f" {file} "
+                    color: str = "w" if file._is_white else "b"
+                    output += f" {color}{file} "
                 else:
-                    output += f" * "
+                    output += f" ,. "
             output += f" --{rank+1}\n\n"
         return output

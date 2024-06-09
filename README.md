@@ -8,7 +8,6 @@ Simulates a game of chess.
 * If attacking, Pawns can move diagonally.
 * Check(mate) logic
 * Castling
-* Improve CLI printout
 * Homemade AI? LLM API? Multiplayer?
 * Render GUI
     - GUI inputs
