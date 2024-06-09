@@ -35,8 +35,6 @@ algebraic notation. For example, "Nb1c3" moves white's Knight at b1 to c3.
 
 
 Input command in algebraic notation (ex: Nb1c3) (Q to quit): Nb1c3
-Validating command: 'Nb1c3' ...
-executing command ((1, 0)) to ((2, 2))
 
  Black's Turn
 

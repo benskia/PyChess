@@ -14,7 +14,6 @@ class Command:
 def validate_command(command: str) -> bool:
     # Commands are in a verbose form of algebraic notation (ex: Nb1c3)
     # piece id --- origin file and rank --- destination file and rank
-    print(f"Validating command: '{command}' ...")
     if not validate_length(command):
         return False
     return all(

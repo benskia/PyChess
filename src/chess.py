@@ -29,9 +29,8 @@ class Game:
                 break
             cmd: Command | None = self.__get_command(user_input)
             if cmd and validate_move(cmd, self._board):
-                print(f"executing command ({cmd._x1, cmd._y1}) to ({cmd._x2, cmd._y2})")
                 self.__execute_command(cmd)
-        print("ending game...")
+        print("Ending game...")
 
     def __parse_command(self, command: str) -> Command:
         x1: int = ord(command[1]) - 97
