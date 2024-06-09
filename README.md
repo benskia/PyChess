@@ -4,8 +4,9 @@ Simulates a game of chess.
 
 ## Roadmap
 
-* Parser for algebraic notation inputs. (ex: Ne5 for Knight to E5)
-    - Piece disambiguation
+* Check(mate) logic
+* Castling
+* Improve CLI printout
 * Homemade AI? LLM API? Multiplayer?
 * Render GUI
     - GUI inputs

@@ -15,7 +15,7 @@ from piece import Piece
 class Game:
 
     def __init__(self) -> None:
-        self._input_prompt: str = "Input command in algebraic notation (ex: Nb1e3) (Q to quit): "
+        self._input_prompt: str = "Input command in algebraic notation (ex: Nb1c3) (Q to quit): "
         self._is_white: bool = True
         self._board = Board()
 
@@ -26,7 +26,7 @@ class Game:
             if user_input == "Q":
                 break
             cmd: Command | None = self.__get_command(user_input)
-            if cmd and validate_move(cmd, self._board._grid):
+            if cmd and validate_move(cmd, self._board):
                 print(f"executing command ({cmd._x1, cmd._y1}) to ({cmd._x2, cmd._y2})")
                 self.__execute_command(cmd)
         print("ending game...")
