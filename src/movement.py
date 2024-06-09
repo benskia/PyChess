@@ -19,7 +19,7 @@ def validate_move(cmd: Command, board: Board) -> bool:
         return False
     if source._moves_once:
         return True
-    return in_line_of_sight(pattern, cmd, board)
+    return in_line_of_sight(adjust_pattern(pattern, cmd), cmd, board)
 
 
 def friendly_firing(source: Piece | None, target: Piece | None) -> bool:
@@ -54,16 +54,18 @@ def moving_within_range(movement: tuple[int, int], pc: Piece) -> bool:
     return True
 
 
-# TODO: indexing goes out of bounds
 def in_line_of_sight(pattern: tuple[int, int], cmd: Command, board: Board) -> bool:
-    current_file: int = min(cmd._x1, cmd._x2) + pattern[0]
-    end_file: int = max(cmd._x1, cmd._x2)
-    current_rank: int = min(cmd._y1, cmd._y2) + pattern[1]
-    end_rank: int = max(cmd._y1, cmd._y2)
-    while (current_file, current_rank) is not (end_file, end_rank):
-        if isinstance(board._grid[current_rank][current_file], Piece):
-            print(f"Collided with piece at row {current_rank}, col {current_file}")
+    current: list[int] = [cmd._x1 + pattern[0], cmd._y1 + pattern[1]]
+    end: list[int] = [cmd._x2, cmd._y2]
+    while current != end:
+        if isinstance(board._grid[current[1]][current[0]], Piece):
+            print(f"Collided with piece at row {current[1]+1}, col {current[0]+1}")
             return False
-        current_file += pattern[0]
-        current_rank += pattern[1]
+        current = [current[0] + pattern[0], current[1] + pattern[1]]
     return True
+
+
+def adjust_pattern(pattern: tuple[int, int], cmd: Command) -> tuple[int, int]:
+    x_mod: int = 1 if cmd._x1 < cmd._x2 else -1
+    y_mod: int = 1 if cmd._y1 < cmd._y2 else -1
+    return (pattern[0] * x_mod, pattern[1] * y_mod)
