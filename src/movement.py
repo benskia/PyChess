@@ -54,6 +54,7 @@ def moving_within_range(movement: tuple[int, int], pc: Piece) -> bool:
     return True
 
 
+# TODO: indexing goes out of bounds
 def in_line_of_sight(pattern: tuple[int, int], cmd: Command, board: Board) -> bool:
     current_file: int = min(cmd._x1, cmd._x2) + pattern[0]
     end_file: int = max(cmd._x1, cmd._x2)
