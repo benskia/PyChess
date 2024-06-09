@@ -7,6 +7,9 @@ class Command:
         self._x2: int = x2
         self._y2: int = y2
 
+    def __repr__(self) -> str:
+        return f"origin: ({self._x1}, {self._y1}) | destination: ({self._x2, self._y2})"
+
 
 def validate_command(command: str) -> bool:
     # Commands are in a verbose form of algebraic notation (ex: Nb1c3)

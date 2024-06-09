@@ -21,6 +21,8 @@ class Game:
 
     def run_game(self) -> None:
         while True:
+            player: str = "White" if self._is_white else "Black"
+            print(f"\n {player}'s Turn")
             print(self._board)
             user_input: str = input(self._input_prompt)
             if user_input == "Q":
