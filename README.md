@@ -12,7 +12,9 @@ Simulates a game of chess.
 
 The game is currently played in the terminal, and inputs are restricted to algebraic notation. For example, "Nb1c3" moves white's Knight at b1 to c3.
 
-There isn't logic for check(mate), but the natural conclusion for these states is that the game is over when the King is captured. This neglects the edgecase when the player is checked with no moves available to them, so I plan on implementing this.
+There isn't logic for castling nor check(mate). In the case of checks, the natural conclusion for these states is that the game is over when the King is captured. This neglects the edgecase when the player is checked with no moves available to them, so I plan on implementing this before castling.
+
+For the time being, I will leave the game in this playable-adjacent state and revisit it after I catch up on studies.
 
 ## Example
 
