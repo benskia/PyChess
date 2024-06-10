@@ -46,8 +46,8 @@ class Pawn(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self._id = "P"
-        self.rebuild_movement_patterns(False)
         self._first_move: bool = True
+        self.rebuild_movement_patterns(False)
 
     def rebuild_movement_patterns(self, is_attacking: bool) -> None:
         new_movement_patterns: list[list[int]] = [[0, 1]]
