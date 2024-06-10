@@ -19,10 +19,15 @@ class Game:
         self._is_white: bool = True
         self._board = Board()
 
+    def get_player_color(self, is_white: bool) -> str:
+        if is_white:
+            return "White"
+        else:
+            return "Black"
+
     def run_game(self) -> None:
         while True:
-            player: str = "White" if self._is_white else "Black"
-            print(f"\n {player}'s Turn")
+            print(f"\n {self.get_player_color(self._is_white)}'s Turn")
             print(self._board)
             user_input: str = input(self._input_prompt)
             if user_input == "Q":
@@ -52,6 +57,10 @@ class Game:
         if source._is_white != self._is_white:
             print("Player and piece colors don't match.")
             return
+        target: Piece | None = self._board._grid[cmd._y2][cmd._x2]
         self._board._grid[cmd._y2][cmd._x2] = source
         self._board._grid[cmd._y1][cmd._x1] = None
+        if isinstance(target, Piece):
+            print(f"{self.get_player_color(self._is_white)}'s '{source}'", end="")
+            print(f" captures {self.get_player_color(not self._is_white)}'s '{target}'")
         self._is_white = not self._is_white

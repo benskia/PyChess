@@ -1,6 +1,6 @@
 from board import Board
 from command import Command
-from piece import Knight, Pawn, Piece
+from piece import Pawn, Piece
 
 
 def validate_move(cmd: Command, board: Board) -> bool:
@@ -11,7 +11,7 @@ def validate_move(cmd: Command, board: Board) -> bool:
     target: Piece | None = board._grid[cmd._y2][cmd._x2]
     if friendly_firing(source, target):
         return False
-    movement: tuple[int, int] = (abs(cmd._x1 - cmd._x2), abs(cmd._y1 - cmd._y2))
+    movement: tuple[int, int] = (cmd._x2 - cmd._x1, cmd._y2 - cmd._y1)
     if isinstance(source, Pawn):
         source.rebuild_movement_patterns(isinstance(target, Piece))
     pattern: tuple[int, int] = movement_to_pattern(movement, source)
@@ -35,7 +35,7 @@ def friendly_firing(source: Piece, target: Piece | None) -> bool:
 
 
 def movement_to_pattern(movement: tuple[int, int], pc: Piece) -> tuple[int, int]:
-    if isinstance(pc, Knight):
+    if pc._moves_once:
         return movement
     pattern_x: int = 0 if movement[0] == 0 else 1
     pattern_y: int = 0 if movement[1] == 0 else 1
@@ -59,11 +59,14 @@ def moving_within_range(movement: tuple[int, int], pc: Piece) -> bool:
 
 
 def in_line_of_sight(pattern: tuple[int, int], cmd: Command, board: Board) -> bool:
+    print(pattern)
     current: list[int] = [cmd._x1 + pattern[0], cmd._y1 + pattern[1]]
     end: list[int] = [cmd._x2, cmd._y2]
-    while current != end:
+    while [current[0], current[1]] != [end[0], end[1]]:
         if isinstance(board._grid[current[1]][current[0]], Piece):
-            print(f"Collided with piece at row {current[1]+1}, col {current[0]+1}")
+            print(
+                f"Collided with piece at rank {current[1]+1}, file {chr(current[0]+97)}"
+            )
             return False
         current = [current[0] + pattern[0], current[1] + pattern[1]]
     return True

@@ -37,7 +37,16 @@ class Board:
                 Knight(is_white),
                 Rook(is_white),
             ]
-        return [Pawn(is_white)] * BOARD_SIZE
+        return [
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+            Pawn(is_white),
+        ]
 
     def __get_empty_row(self) -> list[Piece | None]:
         return [None] * BOARD_SIZE

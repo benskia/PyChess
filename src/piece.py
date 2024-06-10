@@ -54,7 +54,7 @@ class Pawn(Piece):
         if self._first_move:
             new_movement_patterns.append([0, 2])
         if is_attacking:
-            new_movement_patterns.extend([[1, 1], [1, -1]])
+            new_movement_patterns.extend([[1, 1], [-1, 1]])
         if not self._is_white:
             for i in range(len(new_movement_patterns)):
                 new_movement_patterns[i][1] *= -1
