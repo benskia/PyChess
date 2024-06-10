@@ -46,8 +46,24 @@ class Pawn(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self._id = "P"
-        self._movement_patterns = []
+        self.rebuild_movement_patterns(False)
         self._first_move: bool = True
+
+    def rebuild_movement_patterns(self, is_attacking: bool) -> None:
+        new_movement_patterns: list[list[int]] = [[0, 1]]
+        if self._first_move:
+            new_movement_patterns.append([0, 2])
+        if is_attacking:
+            new_movement_patterns.extend([[1, 1], [1, -1]])
+        if not self._is_white:
+            for i in range(len(new_movement_patterns)):
+                new_movement_patterns[i][1] *= -1
+        self._movement_patterns = [
+            (pattern[0], pattern[1]) for pattern in new_movement_patterns
+        ]
+
+    def toggle_first_move(self) -> None:
+        self._first_move = False
 
 
 class Knight(Piece):

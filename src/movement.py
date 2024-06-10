@@ -1,6 +1,6 @@
 from board import Board
 from command import Command
-from piece import Piece
+from piece import Knight, Pawn, Piece
 
 
 def validate_move(cmd: Command, board: Board) -> bool:
@@ -12,12 +12,16 @@ def validate_move(cmd: Command, board: Board) -> bool:
     if friendly_firing(source, target):
         return False
     movement: tuple[int, int] = (abs(cmd._x1 - cmd._x2), abs(cmd._y1 - cmd._y2))
+    if isinstance(source, Pawn):
+        source.rebuild_movement_patterns(isinstance(target, Piece))
     pattern: tuple[int, int] = movement_to_pattern(movement, source)
     if not validate_pattern(pattern, source):
         return False
     if not moving_within_range(movement, source):
         return False
     if source._moves_once:
+        if isinstance(source, Pawn):
+            source.toggle_first_move()
         return True
     return in_line_of_sight(adjust_pattern(pattern, cmd), cmd, board)
 
@@ -31,7 +35,7 @@ def friendly_firing(source: Piece, target: Piece | None) -> bool:
 
 
 def movement_to_pattern(movement: tuple[int, int], pc: Piece) -> tuple[int, int]:
-    if pc._id == "N":
+    if isinstance(pc, Knight):
         return movement
     pattern_x: int = 0 if movement[0] == 0 else 1
     pattern_y: int = 0 if movement[1] == 0 else 1
