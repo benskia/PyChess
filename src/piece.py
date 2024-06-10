@@ -34,6 +34,9 @@ class Piece:
         self._moves_once: bool = moves_once
         self._movement_patterns: list[tuple[int, int]] = []
 
+    def get_movement_patterns(self) -> list[tuple[int, int]]:
+        return self._movement_patterns
+
     def __repr__(self) -> str:
         return self._id
 
@@ -43,7 +46,8 @@ class Pawn(Piece):
     def __init__(self, is_white: bool, moves_once: bool = True) -> None:
         super().__init__(is_white, moves_once)
         self._id = "P"
-        self._movement_patterns = [(0, 1)]
+        self._movement_patterns = []
+        self._first_move: bool = True
 
 
 class Knight(Piece):

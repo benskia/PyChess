@@ -22,7 +22,7 @@ def validate_move(cmd: Command, board: Board) -> bool:
     return in_line_of_sight(adjust_pattern(pattern, cmd), cmd, board)
 
 
-def friendly_firing(source: Piece | None, target: Piece | None) -> bool:
+def friendly_firing(source: Piece, target: Piece | None) -> bool:
     if isinstance(source, Piece) and isinstance(target, Piece):
         if source._is_white == target._is_white:
             print("Abandoning command that results in friendly fire.")
@@ -39,7 +39,7 @@ def movement_to_pattern(movement: tuple[int, int], pc: Piece) -> tuple[int, int]
 
 
 def validate_pattern(pattern: tuple[int, int], pc: Piece) -> bool:
-    if pattern not in pc._movement_patterns:
+    if pattern not in pc.get_movement_patterns():
         print(f"{pattern} not found in {pc} movement patterns")
         return False
     return True
@@ -48,7 +48,7 @@ def validate_pattern(pattern: tuple[int, int], pc: Piece) -> bool:
 def moving_within_range(movement: tuple[int, int], pc: Piece) -> bool:
     # Patterns are just (x,y) of single-space moves. If the movement doesn't
     # match any of the piece's patterns, it's a multi-space movement.
-    if pc._moves_once and movement not in pc._movement_patterns:
+    if pc._moves_once and movement not in pc.get_movement_patterns():
         print(f"{pc} can only move once, but {movement} is more than one square away.")
         return False
     return True
