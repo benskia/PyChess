@@ -59,7 +59,6 @@ def moving_within_range(movement: tuple[int, int], pc: Piece) -> bool:
 
 
 def in_line_of_sight(pattern: tuple[int, int], cmd: Command, board: Board) -> bool:
-    print(pattern)
     current: list[int] = [cmd._x1 + pattern[0], cmd._y1 + pattern[1]]
     end: list[int] = [cmd._x2, cmd._y2]
     while [current[0], current[1]] != [end[0], end[1]]:
