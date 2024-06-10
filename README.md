@@ -5,8 +5,8 @@ Simulates a game of chess.
 ## How to Use
 
 1. Install Python from the official Python website.
-2. Clone this repo.```git clone https://github.com/benskia/PyChess```
-3. Either: (a) add execute permissions to main.sh and run it or (b) directly run main.py (located in /src/)```python main.py``` or ```python3 main.py```
+2. Clone this repo.  ```git clone https://github.com/benskia/PyChess```
+3. Either: (a) add execute permissions to main.sh and run it or (b) directly run main.py (located in /src/)  ```python main.py``` or ```python3 main.py```
 
 ## How to Play
 
