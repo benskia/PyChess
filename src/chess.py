@@ -7,7 +7,7 @@
 from board import Board
 from command import Command, validate_command
 from movement import validate_move
-from piece import Piece
+from piece import King, Piece
 
 
 class Game:
@@ -16,6 +16,7 @@ class Game:
         self._input_prompt: str = (
             "Input command in algebraic notation (ex: Nb1c3) (Q to quit): "
         )
+        self._game_complete: bool = False
         self._is_white: bool = True
         self._board = Board()
 
@@ -26,7 +27,7 @@ class Game:
             return "Black"
 
     def run_game(self) -> None:
-        while True:
+        while not self._game_complete:
             print(f"\n {self.get_player_color(self._is_white)}'s Turn")
             print(self._board)
             user_input: str = input(self._input_prompt)
@@ -63,4 +64,7 @@ class Game:
         if isinstance(target, Piece):
             print(f"{self.get_player_color(self._is_white)}'s '{source}'", end="")
             print(f" captures {self.get_player_color(not self._is_white)}'s '{target}'")
+            if isinstance(target, King):
+                print(f"{self.get_player_color(self._is_white)} wins!")
+                self._game_complete = True
         self._is_white = not self._is_white

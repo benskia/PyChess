@@ -10,10 +10,9 @@ Simulates a game of chess.
 
 ## How to Play
 
-The game is currently played in the terminal, and inputs are restricted to
-algebraic notation. For example, "Nb1c3" moves white's Knight at b1 to c3.
+The game is currently played in the terminal, and inputs are restricted to algebraic notation. For example, "Nb1c3" moves white's Knight at b1 to c3.
 
-There 
+There isn't logic for check(mate), but the natural conclusion for these states is that the game is over when the King is captured. This neglects the edgecase when the player is checked with no moves available to them, so I plan on implementing this.
 
 ## Example
 
